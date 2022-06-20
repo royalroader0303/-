@@ -1,0 +1,35 @@
+# 가위바위보 연습 
+import random
+
+random.choice(['가위', '바위', '보'])
+def game(my_choice):
+    if my_choice not in ['가위', '바위', '보']:
+        print('실격')
+        return '패배'
+
+    else:
+        computer_choice = random.choice(['가위', '바위', '보'])
+
+        if my_choice == computer_choice:
+            print('무승부 입니다!')
+            return '무승부'
+
+        elif (my_choice == '가위' and computer_choice == '보') or\
+         (my_choice == '바위' and computer_choice == '가위') or\
+          (my_choice == '보' and computer_choice == '바위'):
+            print('이겼습니다!')
+            return '승리'
+
+        else:
+            print('졌습니다.')
+            return '패배'
+win = 0
+while True:
+    my_choice = input('가위, 바위, 보 중 하나를 입력해주세요.')
+    result = game(my_choice)
+    if result == '패배':
+        break
+    elif result == '승리':
+        win += 1
+        print('%d연승 중 입니다!'% win)
+    else:
