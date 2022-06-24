@@ -1,0 +1,111 @@
+let total_score     =0;
+let game_no     =1;
+let player_score    =0;
+let score_decision      = {
+                                "가위가위": 0,
+                                "가위바위": -1,
+                                "가위보": 1,
+                                "보보": 0,
+                                "보가위": -1,
+                                "보바위": 1,
+                                "바위바위": 0,
+                                "바위가위": 1,
+                                "바위보": -1,
+                        }
+
+function get_other_value(){
+
+        const randomNumber = Math.floor(Math.random()*3);
+        let playerInput_list    = [ "가위","바위","보" ];
+        let playerInput         = playerInput[ randomNumber ];
+        return playerInput;
+}
+
+function get_other_value_flask( param, callback  ){
+
+        let other_value  = "";
+        $.ajax({
+            url: '/rsp/result',
+            async: false, //false일 경우 동기 요청으로 변경
+            type: 'POST'
+            data: param,
+            dataType: 'json',
+            beforeSend: function(jQ) {},
+            success: function(res) {
+                other_value = res.other_value:
+            }, //요청 성공
+            error: function(jq) {}, //요청실패 에러.
+            complete: function(jq) {
+
+                } //요청의 실패, 성공과 상관없이 완료될 경우 호출
+        });
+        return other_value;
+
+}
+
+function sleep(ms) {
+ const wakeUpTime = Date.now() + ms;
+ while (Date.now() < wakeUpTime) {}
+}
+
+function play_game( userNo, userInput ){
+
+        let param       ={
+                        "game_no": game_no,
+                        "player": userNo,
+                        "value": userInput
+                    }
+        let playerInput    = get_other_value_flask( param );       //상대방의 입력값을 확인
+        while ( playerInput == "" ) {  //상대방이 아직 입력전?
+            sleep(2000); //2초마다 상대방의 데이터가 오는지 확인
+            playerInput    = get_other_value_flask( param );
+        }
+
+        //판정
+        let key     = userInput + playerInput
+        let score   = score_decision[ key ];  //이게 json 
+
+        //점수합계 
+        total_score += score;
+        com_score -= score;
+        //화면표시 
+        $("#c" + game_no).html( comInput );
+        $("#p" + game_no).html( userInput );
+        $("#r" + game_no).html( score );
+        $("#cs" + game_no).html( com_score  );
+        $("#ps" + game_no).html( total_score );
+
+        //게임완료처리 
+        if ( total_score >= 3 ) {
+            alert("이겼습니다.");
+            location.reload();
+            return;
+        }
+        if ( total_score <= -3 ) {
+            alert("졌습니다.");
+            location.reload();
+        }
+        //게임횟수증가  
+        game_no += 1;
+
+        if ( game_no >= 11) {
+            alert("무승부입니다.");
+            location.reload();
+        }
+}
+
+
+$(document).ready(function  () {
+        //제출
+        $("#submit_btn").click(function () {
+            //사용자확인
+            var userNo  = $("#userNo").val();
+            var userInput = $("#userInput").val();
+            if( userInput == "")    {
+                alert('입력하시오');
+                return;
+            }
+            play_game( userNo, userInput );
+
+        });
+});
