@@ -1,0 +1,80 @@
+from flask import Flask, render_template, request, g
+from flask import current_app, session, redirect, Response, jsonify
+from comm_util   import CommUtil
+from app_logger  import Log
+import json
+
+app = Flask('__name__')
+
+LOG = Log
+Log.init(logger_name='prac1', log_level = "debug", log_filepath = "log/prac1.log"  )
+gUtil               = CommUtil(Log)
+
+
+class Game():
+    def __init__(self):
+        self.board= [
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""},
+            {"p1":"", "p2":""}
+        ]
+
+
+gGame    = Game()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/prac1')
+def prac1():
+    return render_template('index.html')
+
+@app.route('/prac1')
+def prac1():
+    return render_template('prac1.html')
+
+@app.route('/prac1/result', methods = ["GET", "POST"])
+def prac1_result():
+    #--
+    params = gUtil.request_params(request, "")
+    game_no = int( params.get("game_no", 1) )
+    player  = params.get("player")
+    value   = params.get("value", "")
+    #--- gmae_info 
+    game_info   = gGame.board[ game_no ]
+    if str(player) == "1":
+        game_info['p1']     = value
+        other_value         = game_info['p2']
+    else:
+        game_info['p2']     = value
+        other_value         = game_info['p1']
+    result  = {
+            "parmas": params,
+            "other_value": other_value
+        }
+    if other_value:
+        other_value = ""
+    gUtil.log_debug("result=%s"%( json.dumps( result, ensure_ascii=False) ) )
+    return jsonify( result )
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8081, debug=True)
+    #app.run(host='0.0.0.0', port=8081 )
