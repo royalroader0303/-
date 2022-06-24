@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href=  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+<title> 가위바위보게임</title>
+</head>
+
+<body>
+    <p>게임결과</p>
+    <div class="container">
+        <table class="table table-borded table-dark">
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+
+            </tr>
+            <tr>
+                <th>player1</th>
+                <td id="p1"></td>
+                <td id="p2"></td>
+                <td id="p3"></td>
+                <td id="p4"></td>
+                <td id="p5"></td>
+                <td id="p6"></td>
+                <td id="p7"></td>
+                <td id="p8"></td>
+                <td id="p9"></td>
+                <td id="p10"></td>
+            </tr>
+            <tr>
+                <th>player2</th>
+                <td id="p21"></td>
+                <td id="p22"></td>
+                <td id="p23"></td>
+                <td id="p24"></td>
+                <td id="p25"></td>
+                <td id="p26"></td>
+                <td id="p27"></td>
+                <td id="p28"></td>
+                <td id="p29"></td>
+                <td id="p210"></td>
+            </tr>
+            <tr>
+                <th>승패</th>
+                <td id="r1"></td>
+                <td id="r2"></td>
+                <td id="r3"></td>
+                <td id="r4"></td>
+                <td id="r5"></td>
+                <td id="r6"></td>
+                <td id="r7"></td>
+                <td id="r8"></td>
+                <td id="r9"></td>
+                <td id="r10"></td>
+            </tr>
+            <tr>
+                <th>player1 점수</th>
+                <td id="p1s1"></td>
+                <td id="p1s2"></td>
+                <td id="p1s3"></td>
+                <td id="p1s4"></td>
+                <td id="p1s5"></td>
+                <td id="p1s6"></td>
+                <td id="p1s7"></td>
+                <td id="p1s8"></td>
+                <td id="p1s9"></td>
+                <td id="p1s10"></td>
+            </tr>
+            <tr>
+                <th>player2 점수</th>
+                <td id="p2s1"></td>
+                <td id="p2s2"></td>
+                <td id="p2s3"></td>
+                <td id="p2s4"></td>
+                <td id="p2s5"></td>
+                <td id="p2s6"></td>
+                <td id="p2s7"></td>
+                <td id="p2s8"></td>
+                <td id="p2s9"></td>
+                <td id="p2s10"></td>
+            </tr>
+        </table>
+    </div>
+    <button id="start_btn">시작</button>
+        player: <input type="text" name="userNo" id="userNo" style="width: 140pt" value"1" >
+        가위바위보:<input type="text" name="userInput" id="userInput" style="width: 140pt;">
+        <button id="submit_btn">화인</button>
+    <script src="/static/assets/js/jquery-latest.js"> </script>
+    <script src=https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.
+    <script src=/static/assets/js/rsp.js?ts=1235> </script>
+</body>
+</html>
